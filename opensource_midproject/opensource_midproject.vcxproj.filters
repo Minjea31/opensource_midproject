@@ -18,5 +18,8 @@
     <ClCompile Include="mk_dir_folder.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="open_folder.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
