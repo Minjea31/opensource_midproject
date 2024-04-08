@@ -8,7 +8,7 @@ int main() {
     scanf("%s", name);
 
     char folderPath[MAX_PATH];
-    strcpy(folderPath, "C:\\Users\\kimmi\\Desktop\\"); 
+    strcpy(folderPath, "C:\\Users\\kimmi\\Desktop\\"); //바탕화면에 입력한 이름으로 폴더 생성
     strcat(folderPath, name); // 원래있던 기본 주소와 입력한 만들 폴더 이름과 합침.
 
     BOOL result = CreateDirectoryA(folderPath, NULL);

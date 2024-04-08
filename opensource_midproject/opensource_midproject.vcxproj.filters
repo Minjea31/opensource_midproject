@@ -18,7 +18,13 @@
     <ClCompile Include="mk_dir_folder.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="open_folder.c">
+    <ClCompile Include="opensource_mid_project.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="make_write_text.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="read_text.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
