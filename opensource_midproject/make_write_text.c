@@ -1,20 +1,16 @@
 #include <stdio.h>
 #include <string.h>
 
-int main() {
+int make_write_text(char* input_title) {
     FILE* filePointer; // 파일 포인터 선언
-    char fileName[100]; // 파일 이름을 저장할 배열
     char filePath[] = "C:\\Users\\kimmi\\Desktop\\"; // 파일이 저장 될 경로
     char content[1000]; // 입력 받을 내용을 저장할 배열
-
-    printf("파일 이름을 입력하세요: ");
-    scanf("%s", fileName); // 파일 이름 입력 받기
 
     printf("파일에 입력할 내용을 입력하세요. 입력을 종료하려면 '// '을 입력하세요.\n");
 
     //파일 경로 생성
     char fullPath[200];
-    sprintf(fullPath, "%s%s.txt", filePath, fileName);
+    sprintf(fullPath, "%s%s.txt", filePath, input_title);
 
     // "w" 쓰기 모드로 열기
     filePointer = fopen(fullPath, "w");
@@ -40,4 +36,27 @@ int main() {
     printf("파일이 성공적으로 생성되었습니다.\n");
 
     return 0;
+}
+
+int main()
+{
+    char* input_title = NULL;
+    char temp_title[100]; // 임시 버퍼
+    printf("제목을 입력하세요 : ");
+    scanf("%s", temp_title); // 문자열 입력 받기
+
+    // 동적 메모리 할당
+    input_title = (char*)malloc(strlen(temp_title) + 1);
+    if (input_title == NULL) {
+        printf("메모리 할당 실패\n");
+        return 1;
+    }
+
+    // 입력받은 문자열 복사
+    strcpy(input_title, temp_title);
+
+    make_write_text(input_title);
+
+    // 메모리 해제
+    free(input_title);
 }
