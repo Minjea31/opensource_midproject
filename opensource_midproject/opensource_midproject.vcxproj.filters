@@ -27,5 +27,11 @@
     <ClCompile Include="read_text.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="edit_text.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="delete_text.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

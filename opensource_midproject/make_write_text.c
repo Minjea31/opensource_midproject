@@ -43,7 +43,7 @@ int main()
 
     printf("제목을 입력하세요 : ");
     fgets(input_title, MAX_TITLE_LENGTH, stdin); // 제목 입력 받기
-    input_title[strcspn(input_title, "\n")] = '\0'; // fgets로 입력받은 문자열의 개행 문자 제거
+    input_title[strcspn(input_title, "\n")] = '\0'; // 개행문자 제거
 
     printf("내용을 입력하세요. 입력을 종료하려면 '// '을 입력하세요.\n");
     input_content[0] = '\0'; // 내용 배열 초기화
