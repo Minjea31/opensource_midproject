@@ -1,27 +1,30 @@
 #include <stdio.h>
 #include <string.h>
 #include <windows.h>
+#include <time.h>
+#include <stdlib.h>
 
 #define MAX_TITLE_LENGTH 100
 #define MAX_CONTENT_LENGTH 1000
 #define MAX_PATH_LENGTH 200
 
 
+//저자 폴더 만드는 함수
 void make_dir_folder(const char* name)
 {
     char folderPath[MAX_PATH];
-    strcpy(folderPath, "C:\\Users\\kimmi\\Desktop\\"); // 바탕화면에 입력한 이름으로 폴더 생성
+    strcpy(folderPath, "C:\\Users\\kimmi\\Desktop\\독후감상문\\"); // 바탕화면에 입력한 이름으로 폴더 생성
     strcat(folderPath, name); // 원래있던 기본 주소와 입력한 만들 폴더 이름과 합침.
 
     BOOL result = CreateDirectoryA(folderPath, NULL);
 
     if (result) {
-        printf("폴더가 성공적으로 생성되었습니다.\n");
+        printf("감상문 작성 완료.\n");
     }
     else {
         DWORD error = GetLastError();
         if (error == ERROR_ALREADY_EXISTS) {
-            printf("이미 저자 폴더가 존재하기때문에 그 안에 만들었습니다. \n");
+            printf("이미 저자 폴더가 존재합니다. \n");
         }
         else {
             printf("폴더를 만드는 데 실패했습니다. 오류 코드: %lu\n", error);
@@ -29,10 +32,11 @@ void make_dir_folder(const char* name)
     }
 }
 
+//감상문 파일을 만드는 함수
 void make_write_text(const char* folder_name, const char* input_title, const char* input_content)
 {
     char folderPath[MAX_PATH];
-    sprintf(folderPath, "C:\\Users\\kimmi\\Desktop\\%s\\", folder_name); // 폴더 경로 생성
+    sprintf(folderPath, "C:\\Users\\kimmi\\Desktop\\독후감상문\\%s\\", folder_name); // 폴더 경로 생성
 
     char filePath[MAX_PATH];
     sprintf(filePath, "%s%s.txt", folderPath, input_title); // 파일 경로 생성
@@ -67,10 +71,11 @@ void make_write_text(const char* folder_name, const char* input_title, const cha
     printf("파일이 성공적으로 생성되었습니다.\n");
 }
 
+//감상문 폴더를 출력 함수
 void read_text(const char* folder_name, const char* input_title)
 {
     char filePath[MAX_PATH_LENGTH];
-    sprintf(filePath, "C:\\Users\\kimmi\\Desktop\\%s\\%s.txt", folder_name, input_title); // 파일 경로 생성
+    sprintf(filePath, "C:\\Users\\kimmi\\Desktop\\독후감상문\\%s\\%s.txt", folder_name, input_title); // 파일 경로 생성
 
     FILE* filePointer = fopen(filePath, "r"); // "r" 모드로 파일 열기
 
@@ -88,9 +93,10 @@ void read_text(const char* folder_name, const char* input_title)
     fclose(filePointer); // 파일 닫기
 }
 
+//감상문 내용을 수정 함수
 void edit_text(const char* folder_name, const char* input_title, const char* input_content) {
     char filePath[MAX_PATH_LENGTH];
-    sprintf(filePath, "C:\\Users\\kimmi\\Desktop\\%s\\%s.txt", folder_name, input_title); // 파일 경로 생성
+    sprintf(filePath, "C:\\Users\\kimmi\\Desktop\\독후감상문\\%s\\%s.txt", folder_name, input_title); // 파일 경로 생성
 
     FILE* filePointer = fopen(filePath, "w"); // "w" 쓰기 모드로 파일 열기
 
@@ -107,9 +113,10 @@ void edit_text(const char* folder_name, const char* input_title, const char* inp
     printf("파일이 성공적으로 덮어쓰기 되었습니다.\n");
 }
 
+//감상문 text파일을 삭제 함수
 void delete_text(const char* folder_name, const char* input_title) {
     char filePath[MAX_PATH_LENGTH];
-    sprintf(filePath, "C:\\Users\\kimmi\\Desktop\\%s\\%s.txt", folder_name, input_title); // 파일 경로 생성
+    sprintf(filePath, "C:\\Users\\kimmi\\Desktop\\독후감상문\\%s\\%s.txt", folder_name, input_title); // 파일 경로 생성
 
     // 파일 삭제
     if (remove(filePath) == 0) {
@@ -119,6 +126,75 @@ void delete_text(const char* folder_name, const char* input_title) {
         printf("파일 삭제에 실패했습니다.\n");
     }
 }
+
+//책 추천해주는 함수
+void recommend_book(const char* filename) {
+    FILE* file = fopen(filename, "r");
+    if (file == NULL) {
+        perror("파일 열기 실패");
+        return;
+    }
+
+    // 파일에서 총 줄 수를 계산
+    int lines = 0;
+    char ch;
+    while ((ch = fgetc(file)) != EOF) {
+        if (ch == '\n') {
+            lines++;
+        }
+    }
+    rewind(file); // 파일 포인터를 다시 파일의 시작으로 이동
+
+    // 랜덤 시드 설정
+    srand(time(NULL));
+
+    // 랜덤 줄 선택
+    int random_line = rand() % lines;
+
+    // 선택된 줄까지 이동
+    int current_line = 0;
+    char buffer[1024];
+    char* title = NULL;
+    title = (char*)malloc(1024 * sizeof(char)); // 제목 공간 동적할당
+    char* author = NULL;
+    author = (char*)malloc(1024 * sizeof(char));// 저자 공간 동적할당
+    while (fgets(buffer, sizeof(buffer), file) != NULL) {
+        if (current_line == random_line) {
+            // 줄에서 "//"를 기준으로 제목과 저자 분리
+            char* slash_pos = strstr(buffer, "//");
+            if (slash_pos != NULL) {
+                *slash_pos = '\0'; // "//" 이전 내용은 제목
+                strcpy(title, buffer);
+                strcpy(author, slash_pos + 2); // "//" 이후 내용은 저자
+            }
+            break;
+        }
+        current_line++;
+    }
+
+    // 선택된 내용 출력
+    printf("제목 : %s\n", title);
+    printf("저자 : %s\n", author);
+
+    free(title);
+    free(author);
+
+    fclose(file);
+}
+
+//책 추천 목록 추가 함수
+void append_to_file(const char* filename, const char* new_data) {
+    FILE* file = fopen(filename, "a");
+    if (file == NULL) {
+        perror("파일 열기 실패");
+        return;
+    }
+
+    // 데이터를 파일에 추가
+    fprintf(file, "%s\n", new_data);
+    fclose(file);
+}
+
 
 int main()
 {
@@ -131,6 +207,8 @@ int main()
         printf("2. 감상문 출력\n");
         printf("3. 감상문 수정(재입력)\n");
         printf("4. 감상문 삭제\n");
+        printf("5. 책 추천\n");
+        printf("6. 책 추천 목록 추가 \n");
         printf("0. 종료\n");
         printf("======================================================\n");
         printf("원하는 메뉴를 입력하세요 : ");
@@ -138,6 +216,7 @@ int main()
 
         scanf("%d", &set);
         getchar();
+        printf("\n======================================================\n");
 
         switch (set)
         {
@@ -306,10 +385,34 @@ int main()
             delete_text(input_folder_d, input_title_d);
             free(input_folder_d);
             free(input_title_d);
+            break;
+        }
+        case 5:
+        {
+            const char* re_filename = "C:\\Users\\kimmi\\Desktop\\독후감상문\\도서목록.txt"; // 파일의 주소를 직접 지정
+            recommend_book(re_filename);
+            break;
+        }
+        case 6:
+        {
+            const char* add_filename = "C:\\Users\\kimmi\\Desktop\\독후감상문\\도서목록.txt"; // 파일의 주소를 직접 지정
+
+            char add_data[1024]; // 입력 받을 문자열 배열 선언
+
+            // 사용자로부터 제목과 저자를 입력 받음
+            printf("제목//저자 형태로 입력하세요: ");
+            scanf(" %[^\n]", add_data); // 개행 문자를 제외한 문자열 입력 받기
+
+            // 파일에 내용 추가
+            append_to_file(add_filename, add_data);
+
+            printf("성공적으로 추가되었습니다.\n");
+            break;
         }
         case 0:
         {
             ///////////종료/////////////////
+            printf("====================종료 되었습니다.=====================");
             break;
         }
         }

@@ -33,5 +33,11 @@
     <ClCompile Include="delete_text.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="recommend.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="add_recommend.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
