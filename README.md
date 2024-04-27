@@ -1,7 +1,7 @@
 #2학년 1학기 OpenSource_mid_project
 ---
 ---
-## 최종본 : opensource_mid_project
+## 최종본 : opensource_mid_project.c
 ---
 ###설명
 ####독후감상문 작성 및 정리 프로그램.
