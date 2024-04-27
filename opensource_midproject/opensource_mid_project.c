@@ -24,7 +24,7 @@ void make_dir_folder(const char* name)
     else {
         DWORD error = GetLastError();
         if (error == ERROR_ALREADY_EXISTS) {
-            printf("이미 저자 폴더가 존재합니다. \n");
+            printf("저자명 폴더가 존재합니다. \n");
         }
         else {
             printf("폴더를 만드는 데 실패했습니다. 오류 코드: %lu\n", error);
