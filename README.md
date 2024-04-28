@@ -1,4 +1,4 @@
-#2학년 1학기 OpenSource_mid_project
+# 2학년 1학기 OpenSource_mid_project
 ---
 ---
 ## 최종본 : opensource_mid_project.c
