@@ -304,6 +304,7 @@ int main()
                 // "//" 입력하면 종료
                 if (strncmp(input_content + strlen(input_content) - 3, "//", 2) == 0) 
                 {
+                    input_content[strlen(input_content) - 3] = '\0'; // "//" 제거
                     break;
                 }
             }
