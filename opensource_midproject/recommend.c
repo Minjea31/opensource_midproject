@@ -62,6 +62,6 @@ void recommend_book(const char* filename) {
 int main() 
 {
     const char* filename = "C:\\Users\\kimmi\\Desktop\\독후감상문\\도서목록.txt"; // 파일의 주소를 직접 지정
-    read_random_line(filename);
+    recommend_book(filename);
     return 0;
 }
