@@ -1,1 +1,1 @@
-# 최종본 : opensource_midproject
+# 최종본 : opensource_mid_project.c
