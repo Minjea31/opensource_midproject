@@ -1,13 +1,16 @@
 # 2학년 1학기 OpenSource_mid_project
 ---
 ## 최종본 : opensource_mid_project.c
----
-### 설명
 
 ---
 
 ## 감상문 작성 및 정리 코드
 
+---
+
+### 설명
+
+---
 
 ##### make_dir_folder() // make_write_text()
 ##### 1. 저자명 폴더안 제목.txt 파일을 생성(txt파일 안에는 감상문 내용 입력)
