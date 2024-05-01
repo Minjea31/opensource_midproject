@@ -73,7 +73,7 @@ void make_write_text(const char* folder_name, const char* input_title, const cha
 
     sprintf(filePath, "%s%s.txt", folderPath, input_title); // 파일 경로 생성
 
-    // 폴더가 이미 존재하는지 확인
+    
     DWORD attrib = GetFileAttributesA(folderPath);
 
     if (attrib == INVALID_FILE_ATTRIBUTES || !(attrib & FILE_ATTRIBUTE_DIRECTORY))
@@ -90,6 +90,7 @@ void make_write_text(const char* folder_name, const char* input_title, const cha
     }
 
     FILE* filePointer = fopen(filePath, "r"); // 파일을 읽기 모드로 열기
+
     if (filePointer != NULL)
     {
         // 파일이 이미 존재하는 경우
@@ -219,7 +220,8 @@ void delete_text(const char* folder_name, const char* input_title)
     char check[4];
     int valid_input = 0; //입력값이 있는지 확인하는 변수
 
-    while (!valid_input) {
+    while (!valid_input) 
+    {
         SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_INTENSITY); // 붉은색 글씨
         printf("\n=========================================\n");
         printf("삭제하시겠습니까? (복구할 수 없습니다) \n");
@@ -256,7 +258,7 @@ void delete_text(const char* folder_name, const char* input_title)
         {
             SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_INTENSITY); // 붉은색 글씨
             clearScreen();
-            printf("\n\n파일 삭제에 실패했습니다. \n해당하는 감상문이 없습니다.\n\n\n");
+            printf("\n해당하는 감상문이 없습니다.\n\n\n");
             SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE); // 글자색 기본값
         }
     }
@@ -395,6 +397,8 @@ int main()
             char* input_folder = NULL;
             char* input_title = NULL;
             char* input_content = NULL;
+
+
             int valid_input = 0;
 
             while (!valid_input)
@@ -458,7 +462,7 @@ int main()
 
             while (!valid_input)
             {
-                // 내용 입력 받기
+                
                 printf("내용을 입력하세요. 입력을 종료하려면 '// '을 입력하세요.\n");
                 input_content = (char*)malloc(MAX_CONTENT_LENGTH * sizeof(char));
 
@@ -471,6 +475,7 @@ int main()
                 }
 
                 input_content[0] = '\0'; // 내용 배열 초기화
+                // 내용 입력 받기
 
                 while (1)
                 {
